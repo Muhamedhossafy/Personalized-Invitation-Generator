@@ -1,3 +1,6 @@
+import os
+os.system("cls" if os.name == "nt" else "clear")
+
 RECIPIENTS_FILE = "Names/invited_names.txt"
 TEMPLATE_FILE = "Input/Letters/starting_letter.txt"
 
@@ -7,13 +10,10 @@ def read_template():
     
 
 def read_names():
-    with open (RECIPIENTS_FILE, "r") as file:
-        # good_names = []
-        # for x in file.readlines():
-        #     good_names.append(x.strip())
-        # return good_names
-        #  ********* OR *******
-        return [line.strip() for line in file.readlines()]
+    with open(RECIPIENTS_FILE, "r", encoding="utf-8") as file:
+        names = file.read().splitlines()
+        return list(dict.fromkeys([name.strip() for name in names if name.strip()]))
+
     
 template = read_template()
 guests = read_names()
